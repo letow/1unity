@@ -19,10 +19,10 @@ public class HeroCamera : MonoBehaviour
 
     void Update()
     {
-        currentZoom = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
 
-        currentYaw -= Input.GetAxis("Horisontal") * yawSpeed * Time.deltaTime;
+        currentYaw -= Input.GetAxis("Horizontal") * yawSpeed * Time.deltaTime;
 
         transform.position = target.position - offset * currentZoom;
         transform.LookAt(target.position + Vector3.up * pitch);
