@@ -133,8 +133,8 @@ GameObject:
   - component: {fileID: 162744027}
   - component: {fileID: 162744030}
   m_Layer: 0
-  m_Name: Camera
-  m_TagString: Untagged
+  m_Name: MainCamera
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 1214846470}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -561,4 +561,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   distance: 0
-  target: {fileID: 1896137711}
+  target: {x: 0, y: 0, z: 0}
+  act: 

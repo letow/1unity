@@ -10,7 +10,9 @@ public class HeroController : MonoBehaviour
 	
 	public float speed;
 	public float distance;
-	public Transform target;
+	public Vector3 target;
+
+	public string act;
 	
     // Start is called before the first frame update
     void Start()
@@ -22,32 +24,55 @@ public class HeroController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target != null)
+		if (Input.GetMouseButtonDown(1))
 		{
-			distance = Vector3.Distance(transform.position, target.position);
-			anim.SetFloat("Speed", speed);
-			speed = Mathf.Clamp(speed, 0, 1);
-			
-			if(distance > 0.5f)
-			{
-				agent.SetDestination(target.position);
-				agent.isStopped = false;
-				speed += 2*Time.deltaTime;
-				anim.SetBool("Walk", true);
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-			}
-			else if (distance <= 0.5f)
+			if (Physics.Raycast(ray, out hit, 100f))
 			{
-				speed -= 4*Time.deltaTime;
-				
-				if (speed <= 0.2f)
-				{
-					anim.SetBool("Walk", false);
-					agent.isStopped = true;
-					target = null;
-				}
+				ClickUpdate(hit);
 			}
-			
 		}
+
+		switch (act)
+		{
+			case "Move": Move(); break;
+		}
+
     }
+	void ClickUpdate(RaycastHit hit)
+	{
+		if (hit.transform.tag == "Ground")
+		{
+			target = hit.point;
+			act = "Move";
+		}
+	}
+	void Move()
+	{
+		distance = Vector3.Distance(transform.position, target);
+		anim.SetFloat("Speed", speed);
+		speed = Mathf.Clamp(speed, 0, 1);
+
+		if (distance > 0.5f)
+		{
+			agent.SetDestination(target);
+			agent.isStopped = false;
+			speed += 2 * Time.deltaTime;
+			anim.SetBool("Walk", true);
+		}
+		else if (distance <= 0.5f)
+		{
+			speed -= 4 * Time.deltaTime;
+
+			if (speed <= 0.2f)
+			{
+				anim.SetBool("Walk", false);
+				agent.isStopped = true;
+				act = "";
+			}
+		}
+
+	}
 }
