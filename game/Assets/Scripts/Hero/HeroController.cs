@@ -7,6 +7,7 @@ public class HeroController : MonoBehaviour
 {
 	NavMeshAgent agent;
 	Animator anim;
+	HeroInventory heroInventory;
 	
 	public float speed;
 	public float distance;
@@ -19,6 +20,7 @@ public class HeroController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 		anim = GetComponent<Animator>();
+		heroInventory = GetComponent<HeroInventory>();
     }
 
     // Update is called once per frame
@@ -48,7 +50,12 @@ public class HeroController : MonoBehaviour
 			target = hit.point;
 			act = "Move";
 		}
+		else if(hit.transform.tag == "Item")
+		{
+			TakeItem(hit);
+		}
 	}
+	
 	void Move()
 	{
 		distance = Vector3.Distance(transform.position, target);
@@ -74,5 +81,21 @@ public class HeroController : MonoBehaviour
 			}
 		}
 
+	}
+	
+	void TakeItem(RaycastHit hit)
+	{
+		distance = Vector3.Distance(transform.position + transform.up, hit.transform.position);
+		
+		if(distance < 2)
+		{
+			heroInventory.item.Add(hit.transform.GetComponent<Item>());
+			Destroy(hit.transform.gameObject);
+		}
+		else
+		{
+			print("Далеко");
+		}
+	
 	}
 }
