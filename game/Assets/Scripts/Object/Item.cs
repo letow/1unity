@@ -9,4 +9,5 @@ public class Item : MonoBehaviour
 	public int price;
 	public string pathSprite;
 	public string pathPrefab;
+	public bool isStackable;
 }

@@ -29,7 +29,7 @@ public class HeroInventory : MonoBehaviour
 			}
 			else
 			{
-				InventoryEnable();
+				InventoryEnabled();
 			}
 		}
 	}
@@ -40,7 +40,7 @@ public class HeroInventory : MonoBehaviour
 		inventory.SetActive(false);
 		
 	}
-	public void InventoryEnable()
+	public void InventoryEnabled()
 	{
 		inventory.SetActive(true);
 		
@@ -49,15 +49,44 @@ public class HeroInventory : MonoBehaviour
 	
 		for(int i = 0; i < item.Count; i++)
 		{
-			drag[i].item = item[i];
-			drag[i].image.sprite = Resources.Load<Sprite>(item[i].pathSprite);
-			drag[i].ownerItem = "myItem";
+			Item it = item[i];
+			for (int j = 0; j < item.Count; j++)
+			{
+				if (drag[j].ownerItem != "")
+				{
+					if (item[i].isStackable)
+					{
+						if (drag[j].item.nameItem == it.nameItem)
+						{
+							drag[j].countItem++;
+							drag[j].count.text = drag[j].countItem.ToString();
+							break;
+						}
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else
+				{
+					drag[j].item = it;
+					drag[j].image.sprite = Resources.Load<Sprite>(it.pathSprite);
+					drag[j].ownerItem = "myItem";
+					drag[j].countItem++;
+					break;
+				}
+			}
 		}
 	}
 	
 	public void RemoveItem(Drag drag)
 	{
-		print("remove");
+		Item it = drag.item;
+		GameObject newObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
+		newObj.transform.position = transform.position + transform.forward + transform.up;
+		item.Remove(it);
+		InventoryEnabled();
 	}
 	public void UseItem(Drag drag)
 	{

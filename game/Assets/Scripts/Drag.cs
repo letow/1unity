@@ -41,8 +41,9 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 	{
 		item = null;
 		image.sprite = null;
+		countItem = 0;
+		count.text = "";
 		//descriptionText.text = "";
-		//count.text = "";
 		ownerItem = "";
 	}
 }
