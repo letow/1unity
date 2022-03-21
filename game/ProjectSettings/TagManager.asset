@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Ground
   - Item
+  - Enemy
+  - Dealer
+  - Building
+  - Wall
+  - Dialog
+  - Priest
   layers:
   - Default
   - TransparentFX

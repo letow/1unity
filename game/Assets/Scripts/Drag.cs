@@ -16,34 +16,66 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
 	public Text count;
 	
 	public Text descriptionText;
+	public GameObject descriptionObj;
+	public Text descriptionItem;
+	
+	Image img;
+	
+	public void Start()
+	{
+		img = GetComponent<Image>();
+	}
 	
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		
+		if(ownerItem == "myItem")
+		{
+			img.color = new Color(1f,1f,1f,60f/255);
+			descriptionObj.SetActive(true);
+			descriptionItem.text = item.description;
+		}
 	}
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		
+		if(ownerItem == "myItem")
+		{
+			img.color = new Color(1f,1f,1f,100f/255);
+			descriptionObj.SetActive(false);
+			descriptionItem.text = "";
+		}
 	}
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		if(eventData.button == PointerEventData.InputButton.Right)
+		if(ownerItem != "")
 		{
-			heroInventory.RemoveItem(this);
-		}
-		else if (eventData.button == PointerEventData.InputButton.Left)
-		{
-			heroInventory.UseItem(this);
+			if(eventData.button == PointerEventData.InputButton.Right)
+			{
+				if(ownerItem == "myItem")
+				{
+					heroInventory.RemoveItem(this);
+				}
+				if(descriptionObj) descriptionObj.SetActive(false);
+			}
+			else if (eventData.button == PointerEventData.InputButton.Left)
+			{
+				if(ownerItem == "myItem" || ownerItem == "myWeapon")
+				{
+					if(!heroInventory.Trade)
+					{
+						heroInventory.UseItem(this);
+					}
+					else
+					{
+						heroInventory.Sell(this);
+					}
+				}
+				else if(ownerItem == "DealerItem")
+				{
+					heroInventory.Buy(this);
+				}
+				if(descriptionObj) descriptionObj.SetActive(false);
+			}
 		}
 	}
 	
-	public void RemoveCell()
-	{
-		item = null;
-		image.sprite = null;
-		countItem = 0;
-		count.text = "";
-		//descriptionText.text = "";
-		ownerItem = "";
-	}
 }

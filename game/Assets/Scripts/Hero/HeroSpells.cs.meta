@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4167233741627c4479ee0b56bece9c69
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - spellBook: {instanceID: 0}
+  - ArcaneMissileObj: {fileID: 3848639664481004234, guid: e422f9a85bd77da4c8aacaf657740aea,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

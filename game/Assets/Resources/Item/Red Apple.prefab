@@ -108,10 +108,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameItem: Red apple
   typeItem: Food
-  price: 0
+  price: 10
+  addHealth: 10
+  description: 'Name: Red Apple
+
+    Type: Food
+
+    Price: 10
+
+    Restores 10 HP'
   pathSprite: Icon/Red apple
   pathPrefab: Item/Red apple
-  isStackable: 0
+  isStackable: 1
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0}
+  damage: 0
 --- !u!54 &5446193035729110365
 Rigidbody:
   m_ObjectHideFlags: 0
